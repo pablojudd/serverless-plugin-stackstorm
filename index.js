@@ -266,6 +266,7 @@ class StackstormPlugin {
   async copyDeps({ noPull } = {}) {
     this.serverless.cli.log('Installing StackStorm adapter dependencies...');
     const prefix = `${INTERNAL_MAGIC_FOLDER}/deps`;
+    await this.execDocker(['easy_install', 'pip==9.0.3'], { noPull });
     await this.execDocker(['mkdir', '-p', prefix], { noPull });
     await this.execDocker(['pip', 'install', '-I', this.st2common_pkg, this.python_runner_pkg, '--prefix', prefix], { noPull });
   }
